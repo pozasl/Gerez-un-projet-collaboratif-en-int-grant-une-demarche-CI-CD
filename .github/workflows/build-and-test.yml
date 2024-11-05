@@ -11,8 +11,8 @@ jobs:
         with:
           path: ${{ github.workspace }}
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - uses: actions/setup-java@v4
       - name: Test backend
-        uses: actions/setup-java@v4
         working-directory: ./back
         with:
           java-version: '11'
@@ -24,8 +24,8 @@ jobs:
           ls -la
           mvn --batch-mode --update-snapshots clean verify
       - run: echo "💡 Backend build & test done"
-      - name: Test frontend
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
+      - name: Test frontend  
         working-directory: ./front
         with:
           node-version: '16'
