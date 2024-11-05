@@ -18,7 +18,7 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           architecture: x64
-          path: ${{ github.workspace }}/back
+          working-directory: ./back
           cache: maven
       - run: pwd
       - run: ls -la
@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: '16'
           cache: 'npm'
-          path: ${{ github.workspace }}/front
+          working-directory: ./front
       - run: pwd
       - run: ls -la
       - run: npm install && ng test --code-coverage
