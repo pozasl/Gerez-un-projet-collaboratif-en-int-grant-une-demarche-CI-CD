@@ -26,6 +26,8 @@ jobs:
         run: mvn --batch-mode --update-snapshots clean verify
       # Front
       - run: echo "Testing frontend..."
+      - run: pwd
+      - run: ls -la
       - name: Setup frontend
         uses: actions/setup-node@v4
         with:
