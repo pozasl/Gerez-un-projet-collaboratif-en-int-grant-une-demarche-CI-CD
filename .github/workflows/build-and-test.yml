@@ -11,32 +11,30 @@ jobs:
         with:
           path: ${{ github.workspace }}
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "Testing backend..."
-      - name: test backend
+      - name: Test backend
         uses: actions/setup-java@v4
+        working-directory: ./back
         with:
           java-version: '11'
           distribution: 'temurin'
           architecture: x64
           cache: maven
-          working-directory: ./back
-          run: |
-            pwd
-            ls -la
-            mvn --batch-mode --update-snapshots clean verify
+        run: |
+          pwd
+          ls -la
+          mvn --batch-mode --update-snapshots clean verify
       - run: echo "💡 Backend build & test done"
-      - run: echo "Testing frontend..."
-      - name: test frontend
+      - name: Test frontend
         uses: actions/setup-node@v4
+        working-directory: ./front
         with:
           node-version: '16'
           cache: 'npm'
-          working-directory: ./front
-          run: |
-            pwd
-            ls -la
-            npm install
-            ng test --code-coverage
+        run: |
+          pwd
+          ls -la
+          npm install
+          ng test --code-coverage
       - run: echo "💡 Frontend build & test done"
       - run: echo "🍏 This job's status is ${{ job.status }}."
   
