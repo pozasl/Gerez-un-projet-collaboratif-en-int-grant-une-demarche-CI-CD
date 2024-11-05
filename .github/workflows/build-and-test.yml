@@ -2,7 +2,7 @@ name: Build & Test Backend
 run-name: ${{ github.actor }} is building and testing the back-end 🚀
 on: [push]
 jobs:
-  checkout-bobapp-repo:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       # Checkout
@@ -37,6 +37,6 @@ jobs:
         working-directory: ./front
         run: |
           npm install
-          ng test --code-coverage
+          npm run coverage
       - run: echo "🍏 This job's status is ${{ job.status }}."
   
