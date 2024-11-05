@@ -8,6 +8,8 @@ jobs:
       - run: echo "🎉 Job triggered by a ${{ github.event_name }} on ${{ github.ref }}."
       - name: Check out repository code
         uses: actions/checkout@v4
+        with:
+          path: ${{ github.workspace }}
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
       - run: echo "🍏 This job's status is ${{ job.status }}."
   build-test-back:
@@ -21,8 +23,9 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           architecture: x64
+          path: ${{ github.workspace }}/back
           cache: maven
-      - run: cd ${{ github.workspace }}/back && mvn --batch-mode --update-snapshots clean verify
+      - run: mvn --batch-mode --update-snapshots clean verify
       - run: echo "🍏 This job's status is ${{ job.status }}."
   build-test-front:
     runs-on: ubuntu-latest
@@ -34,6 +37,7 @@ jobs:
         with:
           node-version: '16'
           cache: 'npm'
-      - run: cd ${{ github.workspace }}/front && npm install && ng test --code-coverage
+          path: ${{ github.workspace }}/front
+      - run: npm install && ng test --code-coverage
       - run: echo "🍏 This job's status is ${{ job.status }}."
   
