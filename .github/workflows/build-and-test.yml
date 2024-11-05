@@ -25,6 +25,8 @@ jobs:
           architecture: x64
           path: ${{ github.workspace }}/back
           cache: maven
+      - run: pwd
+      - run: ls -la
       - run: mvn --batch-mode --update-snapshots clean verify
       - run: echo "🍏 This job's status is ${{ job.status }}."
   build-test-front:
@@ -38,6 +40,8 @@ jobs:
           node-version: '16'
           cache: 'npm'
           path: ${{ github.workspace }}/front
+      - run: pwd
+      - run: ls -la
       - run: npm install && ng test --code-coverage
       - run: echo "🍏 This job's status is ${{ job.status }}."
   
