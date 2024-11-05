@@ -37,12 +37,11 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['ChromeHeadlessCustom'],
+    browsers: ['ChromeHeadlessCI'],
     customLaunchers: {
-      ChromeHeadlessCustom: {
+      ChromeHeadlessCI: {
         base: 'ChromeHeadless',
-        flags: ['--no-sandbox', '--user-data-dir=/tmp/chrome-test-profile',
-                '--disable-web-security']
+        flags: ['--no-sandbox']
       }
     },
     singleRun: false,
