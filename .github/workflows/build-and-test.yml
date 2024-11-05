@@ -23,6 +23,7 @@ jobs:
           distribution: 'temurin'
           architecture: x64
           cache: maven
+          path: back
       - name: Test backend
         working-directory: ./back
         run: mvn --batch-mode --update-snapshots clean verify
@@ -37,6 +38,7 @@ jobs:
         with:
           node-version: '16'
           cache: 'npm'
+          path: front
       - name: test frontend
         working-directory: ./front
         run: npm install && ng test --code-coverage
