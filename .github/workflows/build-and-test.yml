@@ -37,6 +37,6 @@ jobs:
         working-directory: ./front
         run: |
           npm install
-          npm run test --code-coverage
+          ng test --code-coverage
       - run: echo "🍏 This job's status is ${{ job.status }}."
   
