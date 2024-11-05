@@ -18,11 +18,10 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           architecture: x64
-          working-directory: ./back
           cache: maven
       - run: pwd
       - run: ls -la
-      - run: mvn --batch-mode --update-snapshots clean verify
+      - run: cd back && mvn --batch-mode --update-snapshots clean verify
       - run: echo "💡 Backend build & test done"
       - run: echo "Testing frontend..."
       - name: test frontend
@@ -30,10 +29,9 @@ jobs:
         with:
           node-version: '16'
           cache: 'npm'
-          working-directory: ./front
       - run: pwd
       - run: ls -la
-      - run: npm install && ng test --code-coverage
+      - run: cd front && npm install && ng test --code-coverage
       - run: echo "💡 Frontend build & test done"
       - run: echo "🍏 This job's status is ${{ job.status }}."
   
