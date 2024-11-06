@@ -1,0 +1,42 @@
+name: Build & Test Backend
+run-name: ${{ github.actor }} is building and testing the back-end 🚀
+on: [push]
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout
+      - run: echo "🎉 Job triggered by a ${{ github.event_name }} on ${{ github.ref }}."
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          path: ${{ github.workspace }}
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      # Back
+      - name: Setup backend
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          architecture: x64
+          cache: maven
+      - name: Test backend
+        working-directory: ./back
+        run: mvn --batch-mode --update-snapshots clean verify
+      # Front
+      - run: echo "Testing frontend..."
+      - run: pwd
+      - run: ls -la
+      - name: Setup frontend
+        uses: actions/setup-node@v4
+        with:
+          cache-dependency-path: front/package-lock.json
+          node-version: '16'
+          cache: 'npm'
+      - name: test frontend
+        working-directory: ./front
+        run: |
+          npm install
+          npm run coverage
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+  
