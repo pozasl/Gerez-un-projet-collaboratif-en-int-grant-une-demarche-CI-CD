@@ -29,7 +29,8 @@ module.exports = function (config) {
       subdir: '.',
       reporters: [
         { type: 'html' },
-        { type: 'text-summary' }
+        { type: 'text-summary' },
+        { type: 'lcov' } // Ajout de ce reporter pour générer des rapports au format lcov
       ]
     },
     reporters: ['progress', 'kjhtml'],
