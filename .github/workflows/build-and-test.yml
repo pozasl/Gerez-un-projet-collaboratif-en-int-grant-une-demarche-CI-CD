@@ -2,16 +2,15 @@ name: Build & Test Backend
 run-name: ${{ github.actor }} is building and testing the back-end 🚀
 on: [push]
 jobs:
+  #CI
   build-and-test:
     runs-on: ubuntu-latest
     steps:
       # Checkout
-      - run: echo "🎉 Job triggered by a ${{ github.event_name }} on ${{ github.ref }}."
       - name: Check out repository code
         uses: actions/checkout@v4
         with:
           path: ${{ github.workspace }}
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
       # Back
       - name: Setup backend
         uses: actions/setup-java@v4
@@ -41,5 +40,33 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+  #CD
+  docker-images:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          path: ${{ github.workspace }}
+      # Docker Login
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      # Front container
+      - name: Build and push front-end image
+        uses: docker/build-push-action@v6
+        with:
+          context: front
+          push: true
+          tags: bobapp-front:latest
+      # Back container
+      - name: Build and push back-end image
+        uses: docker/build-push-action@v6
+        with:
+          context: back
+          push: true
+          tags: bobapp-back:latest
   
