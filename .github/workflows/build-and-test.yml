@@ -43,6 +43,7 @@ jobs:
   #CD
   docker-images:
     runs-on: ubuntu-latest
+    needs: build-and-test
     steps:
       # Checkout
       - name: Check out repository code
@@ -61,12 +62,12 @@ jobs:
         with:
           context: front
           push: true
-          tags: bobapp-front:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/bobapp-front:latest
       # Back container
       - name: Build and push back-end image
         uses: docker/build-push-action@v6
         with:
           context: back
           push: true
-          tags: bobapp-back:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/bobapp-back:latest
   
