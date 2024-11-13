@@ -30,7 +30,7 @@ module.exports = function (config) {
       reporters: [
         { type: 'html' },
         { type: 'text-summary' },
-        { type: 'lcov' } //lcov format for sonaqube
+        { type: 'lcov' } //lcov format for Sonarqube
       ]
     },
     reporters: ['progress', 'kjhtml'],
