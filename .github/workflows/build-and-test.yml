@@ -30,7 +30,7 @@ jobs:
           cache-dependency-path: front/package-lock.json
           node-version: '16'
           cache: 'npm'
-      - name: test frontend
+      - name: Test frontend
         working-directory: ./front
         run: |
           npm install
