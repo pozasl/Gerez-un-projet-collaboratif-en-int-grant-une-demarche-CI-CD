@@ -1,4 +1,4 @@
-name: Build & Test Backend
+name: Build & Test BobApp
 run-name: ${{ github.actor }} is building and testing the back-end 🚀
 on:
   pull_request:
