@@ -6,9 +6,6 @@ on:
     - opened
     branches:
     - 'develop'
-  push:
-    branches:
-    - 'releases/**'
 jobs:
   #CI
   build-and-test:
