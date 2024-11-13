@@ -1,0 +1,47 @@
+name: Build & Test BobApp
+run-name: ${{ github.actor }} is building and testing the back-end 🚀
+on:
+  pull_request:
+    types:
+    - opened
+    branches:
+    - 'develop'
+jobs:
+  #CI
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          path: ${{ github.workspace }}
+      # Back
+      - name: Setup backend
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          architecture: x64
+          cache: maven
+      - name: Test backend
+        working-directory: ./back
+        run: mvn --batch-mode --update-snapshots clean verify
+      # Front
+      - run: echo "Testing frontend..."
+      - name: Setup frontend
+        uses: actions/setup-node@v4
+        with:
+          cache-dependency-path: front/package-lock.json
+          node-version: '16'
+          cache: 'npm'
+      - name: Test frontend
+        working-directory: ./front
+        run: |
+          npm install
+          npm run coverage
+      # SonarQube
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
