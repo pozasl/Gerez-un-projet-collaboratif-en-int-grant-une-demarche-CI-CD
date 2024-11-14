@@ -32,4 +32,8 @@ public class Joke {
     public String toString() {
         return "Joke [joke=" + joke + ", response=" + response + "]";
     }
+
+    public String hello() {
+      return toString();
+    }
 }
