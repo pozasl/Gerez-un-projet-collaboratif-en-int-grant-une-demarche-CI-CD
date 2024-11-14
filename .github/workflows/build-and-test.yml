@@ -6,6 +6,9 @@ on:
     - opened
     branches:
     - 'develop'
+  push:
+    branches:
+    - 'feature/qualitygate_wait'
 jobs:
   #CI
   build-and-test:
