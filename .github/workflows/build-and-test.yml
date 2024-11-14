@@ -2,13 +2,15 @@ name: Build & Test BobApp
 run-name: ${{ github.actor }} is building and testing the back-end 🚀
 on:
   pull_request:
-    types:
-    - opened
+    types: [opened, synchronize, reopened]
     branches:
     - 'develop'
+  workflow_dispatch:
 jobs:
   #CI
   build-and-test:
+    permissions:
+      pull-requests: read
     runs-on: ubuntu-latest
     steps:
       # Checkout
@@ -44,4 +46,5 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
