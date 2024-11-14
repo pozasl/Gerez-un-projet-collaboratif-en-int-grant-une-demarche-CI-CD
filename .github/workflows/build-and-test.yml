@@ -2,13 +2,10 @@ name: Build & Test BobApp
 run-name: ${{ github.actor }} is building and testing the back-end 🚀
 on:
   pull_request:
-    types:
-    - opened
+    types: [opened, synchronize, reopened]
     branches:
     - 'develop'
-  push:
-    branches:
-    - 'feature/qualitygate_wait'
+  workflow_dispatch:
 jobs:
   #CI
   build-and-test:
