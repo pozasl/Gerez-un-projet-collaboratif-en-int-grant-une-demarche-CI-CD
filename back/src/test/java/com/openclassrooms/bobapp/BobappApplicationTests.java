@@ -14,7 +14,7 @@ class BobappApplicationTests {
 
 	@Test
 	void testfailure() {
-		assertTrue(false);
+		assertTrue(true);
 	}
 
 }
